@@ -25,9 +25,19 @@ public class NodeList {
 			return null;
 	}
 
+	// add a node to the back of the list
 	public void add(Node newNode) {
 		NodeWrapper temp = new NodeWrapper(newNode);
 		tail.nextNode = temp;
 		tail = temp;
+	}
+	
+	// add a node to the front of the list
+	public void push(Node newNode) {
+		NodeWrapper temp = new NodeWrapper(newNode);
+		temp.nextNode = head.nextNode;
+		if(current == head)
+			current = temp;
+		head = temp;
 	}
 }

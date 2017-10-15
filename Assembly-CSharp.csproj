@@ -51,11 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ClosedList.cs" />
      <Compile Include="Assets\Scripts\Hunter.cs" />
      <Compile Include="Assets\Scripts\Node.cs" />
      <Compile Include="Assets\Scripts\NodeGrid.cs" />
      <Compile Include="Assets\Scripts\NodeList.cs" />
      <Compile Include="Assets\Scripts\NodeWrapper.cs" />
+     <Compile Include="Assets\Scripts\OpenList.cs" />
      <Compile Include="Assets\Scripts\RedTile.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Applications/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

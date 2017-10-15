@@ -8,6 +8,8 @@ public class Node : MonoBehaviour {
 	[SerializeField] private RedTile red = null; // own red tile script, if it has one
 	private int x, y; // position relative to other nodes in the grid, and node's size
 
+	[SerializeField] private bool traversable; // is it able to be walked on?
+
 	// Use this for initialization
 	void Start () {
 		x = (int)(transform.position.x / transform.localScale.x);
