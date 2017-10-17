@@ -2,28 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// the closed list of nodes for A*
+// A HashMap for referencing both open and closed lists
 public class ClosedList {
 
-    private bool[,] nodes;
+    // used to track all nodes, null = in closed list
+    // .thisNode == null if unvisited
+    public NodeWrapper[,] nodes;
 
     public ClosedList(int x, int y) {
-        nodes = new bool[x,y];
+        nodes = new NodeWrapper[x,y];
 
-        // set all to false
+        // set all to empty wrappers
         for(int i=0; i<x; i++) {
             for(int j=0; j<y; j++)
-                nodes[i,j] = false;
+                nodes[i,j] = new NodeWrapper();
         }
-    }
-
-    // "add" a node to the close list, make it's flag true
-    public void add(int x, int y) {
-        nodes[x,y] = true;
-    }
-
-    // see if a node's flag is 'true'
-    public bool isInList(int x, int y) {
-        return nodes[x,y];
     }
 }

@@ -25,4 +25,19 @@ public class Node : MonoBehaviour {
 	public Vector3 getPosition() {
 		return transform.position;
 	}
+
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+
+	// convert a coordinate position to grid position
+	public int convertX(float realX){
+		return (int)(realX / transform.localScale.x);
+	}
+	public int convertY(float realY){
+		return (int)(realY / transform.localScale.y);
+	}
 }

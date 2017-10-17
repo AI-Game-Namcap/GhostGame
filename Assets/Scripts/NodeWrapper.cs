@@ -9,13 +9,35 @@ public class NodeWrapper {
 
 	public NodeWrapper nextNode, parentNode; // links to other wrappers for structures/algorithms
 
-	public int g, h, f; // values for A* algorithm
+	public int x, y, g, h; // values for A* algorithm
 
-	public NodeWrapper(Node thisOne, NodeWrapper parent = null, NodeWrapper nextOne = null) {
+	public bool closed; // if the contained nodes is closed or open
+
+	public NodeWrapper(Node thisOne = null, NodeWrapper parent = null, NodeWrapper nextOne = null, _g = 0, _h = 0) {
 		thisNode = thisOne;
 		parentNode = parent;
 		nextNode = nextOne;
 
-		g = h = f = 0;
+		if(thisOne != null) {
+			x = thisNode.getX();
+			y = thisNode.getY();
+		}
+		else {
+			x = y = 0;
+		}
+
+		g = _g;
+		h = _h;
+
+		closed = false;
+	}
+
+	public bool equals(int CX, int CY) {
+		return (x == CX && y == CY);
+	}
+
+	// compare f-scores, return true if this one's less
+	public bool lessThan(NodeWrapper compare) {
+		return (g + h) < (compare.g + compare.h);
 	}
 }
