@@ -9,9 +9,13 @@ public class AStar {
     private ClosedList closed;
     private int x, y, g;
 
+    private NodeGrid grid;
+
     private NodeWrapper currentNode, temp;
 
-    public AStar (NodeGrid grid) {
+    public AStar (NodeGrid _grid) {
+        grid = _grid;
+
         x = grid.getX();
         y = grid.getY();
 
@@ -23,7 +27,7 @@ public class AStar {
     public NodeList findPath(int startX, int startY, int endX, int endY) {
 
         // 1: add starting node to open list
-        open.push(start);
+        open.push(new NodeWrapper(grid.getNode(startX, startY)));
 
         // loop
         while(true) {
@@ -53,7 +57,7 @@ public class AStar {
                 update(x+1, y+1, g, (Mathf.Abs(x-endX+1) + Mathf.Abs(y-endY+1)), currentNode);
             // right
             if(grid.inBounds(x+1, y))
-                update(x+1, y, gg, (Mathf.Abs(x-endX+1) + Mathf.Abs(y-endY)), currentNode);
+                update(x+1, y, g, (Mathf.Abs(x-endX+1) + Mathf.Abs(y-endY)), currentNode);
             // bottom right
             if(grid.inBounds(x+1, y-1))
                 update(x+1, y-1, g, (Mathf.Abs(x-endX+1) + Mathf.Abs(y-endY-1)), currentNode);
@@ -103,7 +107,7 @@ public class AStar {
 
         while(true) {
             path.push(current);
-            current = current.parent;
+            current = current.parentNode;
             if(current == null)
                 return path;
         }

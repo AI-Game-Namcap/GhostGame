@@ -8,7 +8,7 @@ public class Hunter : MonoBehaviour {
 
 	[SerializeField] private NodeGrid grid; // grid of nodes
 
-	[SerializeField] private RigidBody2D body; // rigid body for movement
+	[SerializeField] private Rigidbody2D body; // rigid body for movement
 
 	[SerializeField] private float sightRange; // how far it can see the player
 
@@ -20,7 +20,6 @@ public class Hunter : MonoBehaviour {
 	
 	[SerializeField] private int reactionTime = 10; // number of A* calls to ignore
 
-	private float moveRadus = 1.0f; // how close it will get to target position before stopping
 	private NodeList moveList; // list of nodes to move to
 
 	private Node destinationNode;
@@ -39,12 +38,12 @@ public class Hunter : MonoBehaviour {
 		moveList = new NodeList();
 		alert = sight = false;
 		starCounter = reactionTime;
-		aStar = new aStar(grid);
+		aStar = new AStar(grid);
 	}
 	
 	
 	void FixedUpdate () {
-		vector = destination - transform.position
+		vector = destination - transform.position;
 		// if position is too far from 'destination' move
 		if ((vector).magnitude > moveRadus) {
 			// move, capping movement speed
@@ -66,11 +65,11 @@ public class Hunter : MonoBehaviour {
 		}
 		
 		// LOS check
-		if(lineOfSight)
+		if(lineOfSight())
 		{
 			sight = true;
 			// if within radius, use special, don't update moves
-			if((player - transform.position).magnitude < abilityRadius) {
+			if((player.position - transform.position).magnitude < abilityRadius) {
 				special();
 			}
 			// A* to player
@@ -97,10 +96,10 @@ public class Hunter : MonoBehaviour {
 
 	// determine if has player in line of sight, overwritten in children
 	private bool lineOfSight() {
-		bool tempBool;
-		hit = Physics2D.Raycast(transform.position, player, sightRange);
+		//bool tempBool;
+		hit = Physics2D.Raycast(transform.position, player.position, sightRange);
 
-		return hit.transform.position == player;
+		return hit.transform.position == player.position;
 	}
 
 	// determines the special action taken if in range of the player, overwritten in children

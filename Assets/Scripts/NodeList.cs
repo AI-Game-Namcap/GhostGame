@@ -22,7 +22,7 @@ public class NodeList {
 	
 	// add a node to the front of the list
 	public void push(NodeWrapper newNode) {
-		if(head =! null) 
+		if(head != null) 
 			newNode.nextNode = head;
 		head = newNode;
 	}

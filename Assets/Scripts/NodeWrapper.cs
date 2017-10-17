@@ -13,7 +13,8 @@ public class NodeWrapper {
 
 	public bool closed; // if the contained nodes is closed or open
 
-	public NodeWrapper(Node thisOne = null, NodeWrapper parent = null, NodeWrapper nextOne = null, _g = 0, _h = 0) {
+	public NodeWrapper(Node thisOne = null, NodeWrapper parent = null, NodeWrapper nextOne = null, 
+							int _g = 0, int _h = 0) {
 		thisNode = thisOne;
 		parentNode = parent;
 		nextNode = nextOne;
