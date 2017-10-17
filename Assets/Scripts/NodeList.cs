@@ -2,42 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// list of node objects for pathing, in wrappers
+// stack of node objects for pathing, in wrappers
 public class NodeList {
-	private NodeWrapper head, tail, current;
+	private NodeWrapper head;
 
 	public NodeList(NodeWrapper first = null) {
-		current = head = tail = first;
+		head = first;
 	}
 
-	// returns the node at the 'current' position, and advances the position, 
-	// returns NULL if no current node
-	public Node nextNode() {
-		
-		if(current != null) {
-		Node temp = current.thisNode;
-
-		current = current.nextNode;
-
-		return temp;
+	public Node pop() {
+		if(head != null) {
+			Node temp = head.thisNode;
+			head = head.nextNode;
+			return temp;
 		}
 		else
 			return null;
 	}
-
-	// add a node to the back of the list
-	public void add(Node newNode) {
-		NodeWrapper temp = new NodeWrapper(newNode);
-		tail.nextNode = temp;
-		tail = temp;
-	}
 	
 	// add a node to the front of the list
-	public void push(Node newNode) {
-		NodeWrapper temp = new NodeWrapper(newNode);
-		temp.nextNode = head.nextNode;
-		if(current == head)
-			current = temp;
-		head = temp;
+	public void push(NodeWrapper newNode) {
+		if(head =! null) 
+			newNode.nextNode = head;
+		head = newNode;
+	}
+
+	// empties the list
+	public void clear() {
+		head = null;
 	}
 }
