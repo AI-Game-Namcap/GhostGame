@@ -88,12 +88,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ClosedList.cs" />
+    <Compile Include="Assets\Scripts\CoinPickup.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Hunter.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\NodeGrid.cs" />
     <Compile Include="Assets\Scripts\NodeList.cs" />
     <Compile Include="Assets\Scripts\NodeWrapper.cs" />
     <Compile Include="Assets\Scripts\OpenList.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\RedTile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
