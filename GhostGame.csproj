@@ -232,7 +232,9 @@
     <Compile Include="Assets\Scripts\ClosedList.cs" />
     <Compile Include="Assets\Scripts\CoinPickup.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GUI.cs" />
     <Compile Include="Assets\Scripts\Hunter.cs" />
+    <Compile Include="Assets\Scripts\MouseLock.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\NodeGrid.cs" />
     <Compile Include="Assets\Scripts\NodeList.cs" />
