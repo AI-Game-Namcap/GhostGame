@@ -10,7 +10,12 @@ public class OpenList {
 
     public OpenList (int n) {
 		elements = new NodeWrapper[n];
-        size = n;
+        size = 0;
+	}
+
+	// resets the OpenList to empty state
+	public void reset() {
+		size = 0;
 	}
 
     // adds elements, maintaining heap property

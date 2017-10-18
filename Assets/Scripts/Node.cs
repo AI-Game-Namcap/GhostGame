@@ -33,6 +33,10 @@ public class Node : MonoBehaviour {
 		return y;
 	}
 
+	public bool isTraversable() {
+		return traversable;
+	}
+
 	// convert a coordinate position to grid position
 	public int convertX(float realX){
 		return (int)(realX / transform.localScale.x);
