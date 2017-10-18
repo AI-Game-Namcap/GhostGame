@@ -9,9 +9,17 @@ public class ClosedList {
     // .thisNode == null if unvisited
     public NodeWrapper[,] nodes;
 
-    public ClosedList(int x, int y) {
-        nodes = new NodeWrapper[x,y];
+    private int x, y;
 
+    public ClosedList(int _x, int _y) {
+        x = _x;
+        y = _y;
+        nodes = new NodeWrapper[x,y];
+        reset();        
+    }
+
+    // sets all data to default state
+    public void reset() {
         // set all to empty wrappers
         for(int i=0; i<x; i++) {
             for(int j=0; j<y; j++)

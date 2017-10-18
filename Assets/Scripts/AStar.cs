@@ -20,11 +20,16 @@ public class AStar {
         y = grid.getY();
 
         open = new OpenList((x+y)*3);
+        //Debug.Log("Making open List of " + ((x+y)*3) + " spaces.");
         closed = new ClosedList(x, y);
     }
 
     // A* algorithm
     public NodeList findPath(int startX, int startY, int endX, int endY) {
+
+        // reset data from last calculation
+        open.reset();
+        closed.reset();
 
         // 1: add starting node to open list
         open.push(new NodeWrapper(grid.getNode(startX, startY)));
@@ -50,28 +55,28 @@ public class AStar {
             g = currentNode.g + 1;
 
             // top
-            if(grid.inBounds(x, y+1))
+            if(grid.inBounds(x, y+1) && grid.getNode(x, y+1).isTraversable())
                 update(x, y+1, g, (Mathf.Abs(x-endX) + Mathf.Abs(y-endY+1)), currentNode);
             // top right
-            if(grid.inBounds(x+1, y+1))
+            if(grid.inBounds(x+1, y+1) && grid.getNode(x+1, y+1).isTraversable())
                 update(x+1, y+1, g, (Mathf.Abs(x-endX+1) + Mathf.Abs(y-endY+1)), currentNode);
             // right
-            if(grid.inBounds(x+1, y))
+            if(grid.inBounds(x+1, y) && grid.getNode(x+1, y).isTraversable())
                 update(x+1, y, g, (Mathf.Abs(x-endX+1) + Mathf.Abs(y-endY)), currentNode);
             // bottom right
-            if(grid.inBounds(x+1, y-1))
+            if(grid.inBounds(x+1, y-1) && grid.getNode(x+1, y-1).isTraversable())
                 update(x+1, y-1, g, (Mathf.Abs(x-endX+1) + Mathf.Abs(y-endY-1)), currentNode);
             // bottom
-            if(grid.inBounds(x, y-1))
+            if(grid.inBounds(x, y-1) && grid.getNode(x, y-1).isTraversable())
                 update(x, y-1, g, (Mathf.Abs(x-endX) + Mathf.Abs(y-endY-1)), currentNode);
             // bottom left
-            if(grid.inBounds(x-1, y-1))
+            if(grid.inBounds(x-1, y-1) && grid.getNode(x-1, y-1).isTraversable())
                 update(x-1, y-1, g, (Mathf.Abs(x-endX-1) + Mathf.Abs(y-endY-1)), currentNode);
             // left
-            if(grid.inBounds(x-1, y))
+            if(grid.inBounds(x-1, y) && grid.getNode(x-1, y).isTraversable())
                 update(x-1, y, g, (Mathf.Abs(x-endX-1) + Mathf.Abs(y-endY)), currentNode);
             // top left
-            if(grid.inBounds(x-1, y+1))
+            if(grid.inBounds(x-1, y+1) && grid.getNode(x-1, y+1).isTraversable())
                 update(x-1, y+1, g, (Mathf.Abs(x-endX-1) + Mathf.Abs(y-endY+1)), currentNode);
 
             // 5: add current node to closed list
@@ -107,6 +112,7 @@ public class AStar {
 
         while(true) {
             path.push(current);
+            Debug.Log("Adding node " + current.thisNode.getPosition() + " to path.");
             current = current.parentNode;
             if(current == null)
                 return path;
