@@ -6,13 +6,15 @@ public class Hunter : MonoBehaviour {
 
 	[SerializeField] private Transform player; // player's location
 
+	//[SerializeField] private Rigidbody2D playerBody; // player's Rigidbody
+
 	[SerializeField] private NodeGrid grid; // grid of nodes
 
 	[SerializeField] private Rigidbody2D body; // rigid body for movement
 
-	[SerializeField] private float sightRange = 5f; // how far it can see the player
+	[SerializeField] private float sightRange = 15f; // how far it can see the player
 
-	[SerializeField] private float moveSpeed = 3f; // patrol movement speed, alert = 2x this
+	[SerializeField] private float moveSpeed = 5f; // patrol movement speed, alert = 2x this
 
 	[SerializeField] private float moveRadus = 0.25f; // distance to the destination target will stop at
 
@@ -73,7 +75,7 @@ public class Hunter : MonoBehaviour {
 		// LOS check
 		if(lineOfSight())
 		{
-			//Debug.Log("Line of Sight Extablished");
+			Debug.Log("Line of Sight Extablished");
 			sight = true;
 			// if within radius, use special, don't update moves
 			if((player.position - transform.position).magnitude < abilityRadius) {
@@ -89,7 +91,7 @@ public class Hunter : MonoBehaviour {
 				//moveList.clear();
 				moveList = aStar.findPath((int)transform.position.x, (int)transform.position.y,
 											(int)player.position.x, (int)player.position.y);
-				Debug.Log("Created New Path with A* from " + transform.position + " to " + player.position);
+				//Debug.Log("Created New Path with A* from " + transform.position + " to " + player.position);
 				starCounter = reactionTime;
 			}
 			else
@@ -102,21 +104,34 @@ public class Hunter : MonoBehaviour {
 				// stop moving/empty move list
 				moveList.clear();
 				sight = false;
+				// A* to location player is heading towards (if able)
+				/*moveList = aStar.findPath((int)transform.position.x, (int)transform.position.y,
+											(int)(player.position.x + playerBody.velocity.x), 
+											(int)(player.position.y + playerBody.velocity.y));*/
+				// Alternate: A* to the player's current location (if able)
+				moveList = aStar.findPath((int)transform.position.x, (int)transform.position.y,
+											(int)player.position.x, (int)player.position.y);
+				starCounter = reactionTime;
 			}
 		}
 	}
 
 	// determine if has player in line of sight, overwritten in children
 	private bool lineOfSight() {
-		Debug.DrawRay(transform.position, player.position-transform.position, Color.red);
-		/*hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), 
-								new Vector2(player.position.x, player.position.y), sightRange);
+		
+		Vector3 direction = (player.position - transform.position).normalized;
+		Vector2 origin = transform.position + direction * 1.5f;
+
+		hit = Physics2D.Raycast(origin, direction, sightRange);
+		Debug.DrawRay(origin, direction * sightRange, Color.red);
 
 		if(!hit.collider){
-			Debug.Log("No collider hit by RayCast...");
+			//Debug.Log("No collider hit by RayCast...");
 			return false;
-		}*/
-		return true;//hit.collider.CompareTag("Player");
+		}
+		//return true;
+		//Debug.Log("Tag of collider hit: " + hit.transform.tag);
+		return hit.transform.tag == "Player";
 	}
 
 	// determines the special action taken if in range of the player, overwritten in children
