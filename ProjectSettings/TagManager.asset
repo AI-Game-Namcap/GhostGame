@@ -6,6 +6,7 @@ TagManager:
   tags:
   - coin
   - hunter
+  - tile
   layers:
   - Default
   - TransparentFX

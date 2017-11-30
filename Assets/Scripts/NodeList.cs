@@ -27,8 +27,21 @@ public class NodeList {
 		head = newNode;
 	}
 
+	// returns, but does not remove, the node at the top of the list
+	public Node peek() {
+		if (head != null)
+			return head.thisNode;
+		else
+			return null;
+	}
+
 	// empties the list
 	public void clear() {
 		head = null;
+	}
+
+	// returns true if the list is empty
+	public bool isEmpty() {
+		return head == null;
 	}
 }
