@@ -294,10 +294,20 @@ MonoBehaviour:
   grid: {fileID: 0}
   body: {fileID: 50983105718833094}
   sightRange: 15
-  moveSpeed: 5
+  moveSpeed: 2.5
   moveRadus: 0.25
   abilityRadius: 1.5
   reactionTime: 200
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!212 &212237736328481272
 SpriteRenderer:
   m_ObjectHideFlags: 1

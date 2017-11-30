@@ -112,7 +112,7 @@ public class AStar {
 
         while(true) {
             path.push(current);
-            Debug.Log("Adding node " + current.thisNode.getPosition() + " to path.");
+            //Debug.Log("Adding node " + current.thisNode.getPosition() + " to path.");
             current = current.parentNode;
             if(current == null)
                 return path;
