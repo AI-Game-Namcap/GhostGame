@@ -12,6 +12,8 @@ public class Hunter : MonoBehaviour {
 
 	[SerializeField] private Rigidbody2D body; // rigid body for movement
 
+	[SerializeField] private HunterList otherHunters; // list of all hunters
+
 	[SerializeField] private float sightRange = 15f; // how far it can see the player
 
 	[SerializeField] private float moveSpeed = 2.5f; // patrol movement speed, alert = 2x this
@@ -19,6 +21,8 @@ public class Hunter : MonoBehaviour {
 	[SerializeField] private float moveRadus = 0.25f; // distance to the destination target will stop at
 
 	[SerializeField] private float abilityRadius = 1.5f; // rangeat which the Hunter uses it's ability
+
+	[SerializeField] private float callInRadius = 10f; // distance hunter will respond to a call-in
 	
 	[SerializeField] private int reactionTime = 10; // number of A* calls to ignore
 
@@ -66,6 +70,9 @@ public class Hunter : MonoBehaviour {
 											(int)player.position.x, (int)player.position.y);
 				//Debug.Log("Created New Path with A* from " + transform.position + " to " + player.position);
 				starCounter = reactionTime;
+
+				// also send call-out to other hunters
+				otherHunters.callHunters(player.position);
 			}
 			else
 				starCounter--;
@@ -174,5 +181,22 @@ public class Hunter : MonoBehaviour {
 	private void special() {
 		Debug.Log("Activating Special.");
 		// TODO: Code for "Game Over"
+	}
+
+	// respond to a call-in from the HunterList
+	public void callIn(Vector3 location) {
+		// only respond if it's within the response distance, and if there's no LOS
+		if(!sight && ((transform.position - location).magnitude < callInRadius)) {
+			// use reaction time system for this too
+			if(starCounter > 0) 
+				starCounter --;
+			else {
+				// use A* to get path to the location given
+				moveList = aStar.findPath((int)transform.position.x, (int)transform.position.y,
+											(int)location.x, (int)location.y);
+				// engage alert status
+				alert = true;
+			}
+		}
 	}
 }
