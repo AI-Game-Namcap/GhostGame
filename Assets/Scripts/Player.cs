@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
         transform.position += move * speed * Time.deltaTime;
 	}
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "hunter")
         {
