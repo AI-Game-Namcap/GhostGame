@@ -17,7 +17,7 @@ public class GUI : MonoBehaviour {
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        SceneManager.LoadScene("Start1", LoadSceneMode.Single);
     }
 
     public void quitGame()

@@ -14,7 +14,7 @@ public class Hunter : MonoBehaviour {
 
 	[SerializeField] private HunterList otherHunters; // list of all hunters
 
-	[SerializeField] private float sightRange = 15f; // how far it can see the player
+	[SerializeField] private float sightRange = 50f; // how far it can see the player
 
 	[SerializeField] private float moveSpeed = 2.5f; // patrol movement speed, alert = 2x this
 
@@ -30,6 +30,8 @@ public class Hunter : MonoBehaviour {
 	private NodeList patrolList; // Patrol Points traslated into a NodeList
 
 	private NodeList moveList; // list of nodes to move to
+
+    public GameObject alertPlace;   
 
 	private Node destinationNode;
 	private Vector3 destination, vector;
@@ -49,10 +51,19 @@ public class Hunter : MonoBehaviour {
 		aStar = new AStar(grid);
 		makePatrol();
 		moveList = patrolList;
-	}
+        if (alertPlace != null)
+        {
+            alertPlace.GetComponent<Renderer>().enabled = false;
+        }
+    }
 	
 	
 	void FixedUpdate() {
+        //alert check
+        if(alert)
+        {
+            StartCoroutine(AlertFunc());
+        }
 		// LOS check
 		if(lineOfSight())
 		{
@@ -199,4 +210,11 @@ public class Hunter : MonoBehaviour {
 			}
 		}
 	}
+
+    IEnumerator AlertFunc()
+    {        
+        alertPlace.GetComponent<Renderer>().enabled = true;
+        yield return new WaitForSeconds(4);
+        alertPlace.GetComponent<Renderer>().enabled = false;
+    }
 }
